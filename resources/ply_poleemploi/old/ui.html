@@ -1,0 +1,146 @@
+<head>
+    <meta charset="UTF-8">
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="animate.css" type="text/css">
+    <script>
+        function addCommas(nStr) {
+            nStr += '';
+            var x = nStr.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + '<span style="margin-left: 3px; margin-right: 3px;"/>' + '$2');
+            }
+            return x1 + x2;
+        }
+
+        window.onload = function(e){
+            $('.icon').html("<font style='color: rgb(0, 125, 0); font-weight: 700; margin-right: 6px;'>\u{1F4F1}</font>");
+            window.addEventListener('message', function(event){
+
+                if ( event.data.read == true ) {
+                    $('.sender').html(event.data.by );
+                    $('.msg').html( event.data.msg );
+                    $('#newmsg-container').addClass("open");
+                    if ( parseInt($('#unreaded').html()) != 0 ){
+                        var current = ( parseInt($('#unreaded').html()) - 1 );
+                        $('#unreaded').html( current );
+                    }
+                }
+                if (event.data.closeRead == true ) {
+                    $('#newmsg-container').removeClass("open");
+                    $('.sender').html('');
+                    $('.msg').html('');
+
+                }
+
+                if ( event.data.nbMsgUnreaded ) {
+                    $('#unreaded').html( event.data.nbMsgUnreaded );
+                }
+                if ( event.data.unreaded == true ) {
+                    var $unreaded_obj = $('#unreaded');
+                    var current = ( parseInt($unreaded_obj.html()) + 1 );
+                    $unreaded_obj.html( current );
+                }
+                if ( event.data.deleteUnreaded == true ) {
+                    if ( parseInt($('#unreaded').html()) != 0 ){
+                        var current = ( parseInt($('#unreaded').html()) - 1 );
+                        $('#unreaded').html( current );
+                    }
+                }
+            })
+        };
+    </script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+        @font-face {
+            font-family: pcdown;
+            src: url(pdown.ttf);
+        }
+        @font-face {
+            font-family: voice;
+            src: url(voice_of_the_highlander.ttf);
+        }
+        .msg-container {
+            position: absolute;
+            bottom: 16vh;
+            left: 16vw;
+        }
+        #unreaded {
+            font-family: pcdown;
+            font-size: 2rem;
+            color: white;
+            padding: 4px;
+            text-shadow:
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    1px 1px 0 #000;
+        }
+        .icon {
+            margin-left:12px;
+            font-size: 2rem;
+        }
+        #newmsg-container {
+            width: 450px;
+            height:300px;
+            position: absolute;
+            top: 25vh;
+            right:-650px;
+            transition: all 350ms;
+
+
+        }
+        #newmsg-container.open {
+            right: 100px;
+        }
+        .sender {
+            font-family: Roboto;
+            font-size: 2.5rem;
+            color: white;
+            text-align: center;
+        }
+        .msg {
+            background: rgba(59,150,255,1);
+            background: -moz-linear-gradient(top, rgba(59,150,255,1) 0%, rgba(59,114,173,1) 41%, rgba(42,85,196,1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(59,150,255,1)), color-stop(41%, rgba(59,114,173,1)), color-stop(100%, rgba(42,85,196,1)));
+            background: -webkit-linear-gradient(top, rgba(59,150,255,1) 0%, rgba(59,114,173,1) 41%, rgba(42,85,196,1) 100%);
+            background: -o-linear-gradient(top, rgba(59,150,255,1) 0%, rgba(59,114,173,1) 41%, rgba(42,85,196,1) 100%);
+            background: -ms-linear-gradient(top, rgba(59,150,255,1) 0%, rgba(59,114,173,1) 41%, rgba(42,85,196,1) 100%);
+            background: linear-gradient(to bottom, rgba(59,150,255,1) 0%, rgba(59,114,173,1) 41%, rgba(42,85,196,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b96ff', endColorstr='#2a55c4', GradientType=0 );
+            padding: 15px;
+            color: white;
+            font-family: Roboto;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+        }
+        .msg::after {
+            content: ' ';
+            position: absolute;
+            bottom:-9px;
+            right:10px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 10px 0 10px;
+            border-color: rgb(47, 91, 174) transparent transparent transparent;
+
+        }
+    </style>
+
+</head>
+<body>
+    <div class="msg-container">
+        <span class="icon"></span>
+        <span id="unreaded" class="tada">0</span>
+    </div>
+    <div id="newmsg-container">
+        <div class="sender"></div>
+        <div class="msg"></div>
+    </div>
+</body>
