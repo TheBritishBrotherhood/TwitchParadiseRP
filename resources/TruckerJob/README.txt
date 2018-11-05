@@ -1,0 +1,1 @@
+Add truck blip to map!
