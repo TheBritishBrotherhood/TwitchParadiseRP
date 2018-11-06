@@ -15,4 +15,6 @@ As many of you know TwitchParadise RP was one of few servers that had a large pl
 
 Have fun.
 
+Love the files? Feel free to support my needs< https://streamlabs.com/thebritishbrotherhood
+
 PLEASE DO NOT REDISTRIBUTE OR RE-UPLOAD!
