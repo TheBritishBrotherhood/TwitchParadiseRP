@@ -52,12 +52,12 @@ end)
 --=====================================================================================================================
 
 AddEventHandler('chatMessage', function(source, name, message)
-  PerformHttpRequest('https://discordapp.com/api/webhooks/336079592253292546/1KDLXWBwaT_04ZJidhYemFP0EXoBS0khdc_016WliC2dlKOW8B8xYymP0aMvErHPpz8P', function(err, text, headers) end, 'POST', json.encode({username = name, content = message}), { ['Content-Type'] = 'application/json' })
+  PerformHttpRequest('YOURDISSCORDAPIHERE', function(err, text, headers) end, 'POST', json.encode({username = name, content = message}), { ['Content-Type'] = 'application/json' })
 end)
 
 function sendToDiscord(name, message)
   if message == nil or message == '' then return FALSE end
-  PerformHttpRequest('https://discordapp.com/api/webhooks/336079592253292546/1KDLXWBwaT_04ZJidhYemFP0EXoBS0khdc_016WliC2dlKOW8B8xYymP0aMvErHPpz8P', function(err, text, headers) end, 'POST', json.encode({username = name, content = message}), { ['Content-Type'] = 'application/json' })
+  PerformHttpRequest('YOURDISSCORDAPIHERE', function(err, text, headers) end, 'POST', json.encode({username = name, content = message}), { ['Content-Type'] = 'application/json' })
 end
 
 AddEventHandler('playerActivated', function()
